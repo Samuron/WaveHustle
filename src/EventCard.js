@@ -53,7 +53,11 @@ class EventCard extends React.Component {
 
   visitEvent() {
     var user = firebase.auth().currentUser;
+    if (this.state.visitors.filter(x => x.visitorId === user.uid).length === 0) {
+      return;
+    }
     this.visitorsRf.push({
+      visitorId: user.uid,
       visitor: user.displayName,
       visitorPhotoUrl: user.photoURL
     });
@@ -78,7 +82,7 @@ class EventCard extends React.Component {
           <RaisedButton label="Show visitors" onTouchTap={this.handleOpen} />
           <Dialog modal={false} open={this.state.openVisitors} onRequestClose={this.handleClose} >
             <List>
-             <Subheader>You can meet these awesome guys</Subheader>
+              <Subheader>You can meet these awesome guys</Subheader>
               {this.state.visitors.map(e => <Visitor {...e} />)}
             </List>
           </Dialog>
