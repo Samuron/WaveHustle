@@ -90,16 +90,16 @@ class DashboardComponent extends Component {
           {
             this.props.threads.map((thread) => {
               return (
-                <div style={listItemStyle} key={thread.id}>
-                  <ListItem>
-                    <Link to={`/thread/${thread.id}`}>
-                      <div style={listItemTitleStyle}>{thread.name}: {thread.id}</div>
-                    </Link>
-                    <div style={listItemIconContainerStyle}>
-                      <ContentClear style={listItemIconStyle} data-val={thread.id} onClick={this.props.removeThread}/>
-                    </div>
-                  </ListItem>
-                </div>
+                <Link to={`/thread/${thread.id}`}>
+                  <div style={listItemStyle} key={thread.id}>
+                    <ListItem>
+                        <div style={listItemTitleStyle}>{thread.name}: {thread.id}</div>
+                        <div style={listItemIconContainerStyle}>
+                          <ContentClear style={listItemIconStyle} data-val={thread.id} onClick={this.props.removeThread}/>
+                        </div>
+                    </ListItem>
+                  </div>
+                </Link>
               );
             })
           }
