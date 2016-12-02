@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
+import { Link } from 'react-router'
 import {List, ListItem} from 'material-ui/List';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -11,13 +12,15 @@ const listStyle = {
 };
 
 const listItemTitleStyle = {
-  verticalAlign: 'middle'
+  color: 'white',
+  verticalAlign: 'middle',
+  display: 'inline-block',
+  width: '80%'
 };
 
 const listItemIconStyle = {
-  position: 'absolute',
-  right: '2em',
-  top: '1em'
+  display: 'inline-block',
+  width: '15%'
 };
 
 export default class Dashboard extends Component {
@@ -31,36 +34,23 @@ export default class Dashboard extends Component {
         }
       ]
     };
-    this.removing = false;
-  }
-
-  openThread() {
-    if(!this.removing){
-      console.log('open thread');
-    }
   }
 
   addThread() {
 
   }
 
-  removeThread() {
-    console.log('remove thread');
-    this.removing = true;
-    setTimeout(() => {
-      this.removing = false;
-    }, 1000);
+  removeThread(el) {
+    console.log(el.currentTarget.getAttribute('data-val'));
   }
 
   render() {
     return (
       <div>
         <DashboardComponent threads={this.state.threads}
-                            openThread={this.openThread.bind(this)}
                             addThread={this.addThread.bind(this)}
                             removeThread={this.removeThread.bind(this)}
         />
-        <Link to={`/thread`}>To fake tread</Link>
       </div>
     );
   }
@@ -79,9 +69,14 @@ class DashboardComponent extends Component {
           {
             this.props.threads.map((thread) => {
               return (
-                <ListItem onClick={this.props.openThread} key={thread.id}>
-                  <div style={listItemTitleStyle}>{thread.name}: {thread.id}</div>
-                  <ContentClear onClick={this.props.removeThread} style={listItemIconStyle}/>
+                <ListItem key={thread.id}>
+                  <Link to={'/thread'}>
+                    <div style={listItemTitleStyle}>{thread.name}: {thread.id}</div>
+                  </Link>
+                  <div style={listItemIconStyle}>
+                    <ContentClear data-val={thread.id} onClick={this.props.removeThread}/>
+                  </div>
+
                 </ListItem>
               );
             })
