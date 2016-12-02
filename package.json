@@ -37,11 +37,11 @@
     "firebase": "^3.4.0",
     "firebase-util": "^0.2.5",
     "lodash": "^4.15.0",
-    "material-ui": "^0.15.4",
+    "material-ui": "^0.16.4",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-router": "^2.8.1",
-    "react-tap-event-plugin": "^1.0.0",
+    "react-tap-event-plugin": "^2.0.1",
     "react-youtube": "^7.1.1",
     "reactfire": "^1.0.0"
   }
