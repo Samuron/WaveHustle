@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton';
 const listItemStyle = {
   paddingTop: 10,
   paddingBottom: 10,
+  minHeight: 40
 };
 
 const textStyle = {
@@ -34,14 +35,18 @@ export default class Chat extends Component {
     };
   }
 
-  submit() {
-    console.log('submit', this.state.message)
+  defaultProps = {
+    messages: []
+  };
 
-    this.props.onMessage(this.state.message);
-    // after submit
-    this.setState({
-      message: ''
-    });
+  submit() {
+    if (this.state.message) {
+      this.props.onMessageSubmit(this.state.message);
+      // after submit
+      this.setState({
+        message: ''
+      });
+    }
   }
 
   render() {
@@ -49,46 +54,14 @@ export default class Chat extends Component {
       <div style={style}>
         <List style={{paddingBottom: 0, height: 245, overflow: 'scroll'}}>
           <Subheader>Recent chats</Subheader>
-          <ListItem
-            innerDivStyle={listItemStyle}
-            primaryText={
-              <p style={textStyle}>
-                Brendan Lim Brendan Lim Brendan Lim Brendan Lim
-                Brendan Lim Brendan Lim Brendan Lim Brendan Lim
-              </p>
-            }
-            leftAvatar={<Avatar src="http://www.material-ui.com/images/ok-128.jpg" />}
-          />
-          <ListItem
-            innerDivStyle={listItemStyle}
-            primaryText={
-              <p style={textStyle}>
-                Brendan Lim Brendan Lim Brendan Lim Brendan Lim
-                Brendan Lim Brendan Lim Brendan Lim Brendan Lim
-              </p>
-            }
-            leftAvatar={<Avatar src="http://www.material-ui.com/images/ok-128.jpg" />}
-          />
-          <ListItem
-            innerDivStyle={listItemStyle}
-            primaryText={
-              <p style={textStyle}>
-                Brendan Lim Brendan Lim Brendan Lim Brendan Lim
-                Brendan Lim Brendan Lim Brendan Lim Brendan Lim
-              </p>
-            }
-            leftAvatar={<Avatar src="http://www.material-ui.com/images/ok-128.jpg" />}
-          />
-          <ListItem
-            innerDivStyle={listItemStyle}
-            primaryText={
-              <p style={textStyle}>
-                Brendan Lim Brendan Lim Brendan Lim Brendan Lim
-                Brendan Lim Brendan Lim Brendan Lim Brendan Lim
-              </p>
-            }
-            leftAvatar={<Avatar src="http://www.material-ui.com/images/ok-128.jpg" />}
-          />
+          {this.props.messages.map(({ message, id, photoUrl}) => (
+            <ListItem
+              innerDivStyle={listItemStyle}
+              key={id}
+              primaryText={<p style={textStyle}>{message}</p>}
+              leftAvatar={<Avatar src={photoUrl} />}
+            />
+          ))}
         </List>
         <div style={{padding: '0 0 0 10px'}}>
           <TextField name="message"
