@@ -16,10 +16,11 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
 const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyDKA3OrAAbhLWV-oILlook7z9orkGRO-KQ",
-  authDomain: "videohustle-d80dd.firebaseapp.com",
-  databaseURL: "https://videohustle-d80dd.firebaseio.com",
-  storageBucket: "videohustle-d80dd.appspot.com"
+  apiKey: "AIzaSyALm6LHiGIX7a9mDGJg480lcIdgYrj1hzY",
+  authDomain: "wavehustle-bfc5e.firebaseapp.com",
+  databaseURL: "https://wavehustle-bfc5e.firebaseio.com",
+  storageBucket: "",
+  messagingSenderId: "564370259273"
 };
 
 firebase.initializeApp(FIREBASE_CONFIG);
@@ -40,8 +41,8 @@ const Navigation = (
     <Router history={hashHistory}>
       <Route path="/" component={App} onEnter={checkToken}>
         <IndexRoute component={Feed} />
-        <Route path="/feed" component={Feed}/>
-        <Route path="/friends" component={Friends}/>
+        <Route path="/feed" component={Feed} />
+        <Route path="/friends" component={Friends} />
         <Route path="/broadcast" component={Broadcast} />
         <Route path="/subscription" component={SubscriptionList} />
         <Route path="/subscription/:videoKey" component={Subscription} />
