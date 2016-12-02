@@ -89,7 +89,12 @@ export default class AddThread extends Component {
     return (
       <div>
         <RaisedButton label="Add thread" onTouchTap={this.handleOpen} />
-        <Dialog title="Create new thread" actions={actions} modal={true} open={this.state.open}>
+        <Dialog
+          autoScrollBodyContent={true}
+          title="Create new thread"
+          actions={actions}
+          modal={true} 
+          open={this.state.open}>
           <br />
           Whats is it about?
           <br />
