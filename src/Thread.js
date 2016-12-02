@@ -5,6 +5,8 @@ import Subheader from 'material-ui/Subheader';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 
+import EventCard from './EventCard';
+
 const listItemStyle = {
   paddingTop: 10,
   paddingBottom: 10,
@@ -108,6 +110,7 @@ export default class Thread extends Component {
   render() {
     return (
       <div>
+        <EventCard style={{ width: 300, background: 'red'}} events={[]} />
         <Chat />
       </div>
     );
