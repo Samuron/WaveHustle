@@ -7,12 +7,13 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentClear from 'material-ui/svg-icons/content/clear';
 
 const listStyle = {
-  background: '#000',
   marginBottom: '1em'
 };
 
 const listItemStyle = {
-  margin: '0.5em 0'
+  margin: '0.5em 0',
+  background: '#888',
+  borderRadius: '0.3em'
 };
 
 const listItemTitleStyle = {
@@ -22,9 +23,16 @@ const listItemTitleStyle = {
   width: '80%'
 };
 
+const listItemIconContainerStyle = {
+  display: 'inline-block',
+  width: '15%',
+  textAlign: 'right'
+};
+
 const listItemIconStyle = {
   display: 'inline-block',
-  width: '15%'
+  background: 'black',
+  borderRadius: '1em'
 };
 
 export default class Dashboard extends Component {
@@ -40,7 +48,9 @@ export default class Dashboard extends Component {
   }
 
   removeThread(el) {
-    console.log(el.currentTarget.getAttribute('data-val'));
+    let threadId = el.currentTarget.getAttribute('data-val');
+    let threadRef = firebase.database().ref(`/threads/` + threadId);
+    threadRef.remove();
   }
 
   componentDidMount() {
@@ -80,15 +90,16 @@ class DashboardComponent extends Component {
           {
             this.props.threads.map((thread) => {
               return (
-                <ListItem style={listItemStyle} key={thread.id}>
-                  <Link to={`/thread/${thread.id}`}>
-                    <div style={listItemTitleStyle}>{thread.name}: {thread.id}</div>
-                  </Link>
-                  <div style={listItemIconStyle}>
-                    <ContentClear data-val={thread.id} onClick={this.props.removeThread}/>
-                  </div>
-
-                </ListItem>
+                <div style={listItemStyle} key={thread.id}>
+                  <ListItem>
+                    <Link to={`/thread/${thread.id}`}>
+                      <div style={listItemTitleStyle}>{thread.name}: {thread.id}</div>
+                    </Link>
+                    <div style={listItemIconContainerStyle}>
+                      <ContentClear style={listItemIconStyle} data-val={thread.id} onClick={this.props.removeThread}/>
+                    </div>
+                  </ListItem>
+                </div>
               );
             })
           }
