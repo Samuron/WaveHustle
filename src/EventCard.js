@@ -5,7 +5,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 class EventCard extends React.Component {
   render() {
     return (
-      <Card>
+      <Card style={{ marginBottom: 10 }}>
         <CardHeader title={this.props.name} subtitle={`by ${this.props.creator}`} avatar={this.props.creatorPhotoUrl}/>
         <CardMedia
           overlay={<CardTitle title={`Hosted at ${this.props.place}`} subtitle={`Price: ${this.props.price}`}/>}>
