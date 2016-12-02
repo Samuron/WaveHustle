@@ -40,7 +40,6 @@ const Navigation = (
     <Router history={browserHistory}>
       <Route path="/" component={Dashboard} onEnter={checkToken}>
         <IndexRoute component={Feed} />
-        <Route path="/feed" component={Feed} />
       </Route>
       <Route path="/login" component={Login} />
     </Router>
