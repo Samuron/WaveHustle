@@ -5,6 +5,8 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 export default class AddEvent extends React.Component {
   constructor(props) {
@@ -15,9 +17,11 @@ export default class AddEvent extends React.Component {
       creatorPhotoUrl: user.photoURL,
       name: '',
       place: '',
-      date: '',
+      date: {},
       photoUrl: '',
       description: '',
+      price: '',
+      currency: '',
       open: false
     }
   }
@@ -26,12 +30,27 @@ export default class AddEvent extends React.Component {
   handleClose = () => { this.setState({ open: false }); };
   setName = (e, name) => { this.setState({ name }); };
   setPlace = (e, place) => { this.setState({ place }); };
-  setDate = (e, date) => { this.setState({ date: date.toDateString() }); };
+  setDate = (e, date) => { this.setState({ date }); };
   setPhotoUrl = (e, photoUrl) => { this.setState({ photoUrl }); };
   setPrice = (e, price) => { this.setState({ price }); };
   setDescription = (e, description) => { this.setState({ description }); };
+  setCurrency = (e, i, currency) => { this.setState({ currency }); };
+
   saveToDb = () => {
-    firebase.database().ref(`/threads/${this.props.threadId}/events`).push(this.state);
+
+    console.log(this.state);
+
+    var event = {
+      creator: this.state.creator,
+      creatorPhotoUrl: this.state.creatorPhotoUrl,
+      name: this.state.name,
+      place: this.state.place,
+      date: this.state.date.toDateString(),
+      photoUrl: this.state.photoUrl,
+      description: this.state.description,
+      price: this.state.price + ' ' + this.state.currency,
+    }
+    firebase.database().ref(`/threads/${this.props.threadId}/events`).push(event);
     this.handleClose();
   }
 
@@ -49,22 +68,39 @@ export default class AddEvent extends React.Component {
         onTouchTap={this.saveToDb}
         />,
     ];
+    var dialogStyle = {
+      width: '50%'
+    };
 
     return (
       <div>
         <RaisedButton label="Add event" onTouchTap={this.handleOpen} />
         <Dialog title="Tell us about event" actions={actions} modal={true} open={this.state.open}>
-          <TextField hintText="How would you like it to be called?" onChange={this.setName} />
+          <TextField floatingLabelText="Name"
+            hintText="How would you like it to be called?"
+            onChange={this.setName} fullWidth={true} />
           <br />
-          <TextField hintText="Where would you like it to be held?" onChange={this.setPlace} />
+          <TextField floatingLabelText="Place"
+            hintText="Where would you like it to be held?"
+            onChange={this.setPlace} fullWidth={true} />
           <br />
-          <DatePicker hintText="Bro, do you even know when?" onChange={this.setDate} />
+          <DatePicker floatingLabelText="Date"
+            hintText="Bro, do you even know when?"
+            onChange={this.setDate} fullWidth={true} />
           <br />
-          <TextField hintText="Share a photo?" onChange={this.setPhotoUrl} />
+          <TextField floatingLabelText="Photo url" hintText="Share a photo?" onChange={this.setPhotoUrl} fullWidth={true} />
           <br />
-          <TextField hintText="The best things in life are free" onChange={this.setPrice} />
+          <TextField floatingLabelText="Price"
+            hintText="The best things in life are free"
+            onChange={this.setPrice} fullWidth={true} />
+          <SelectField floatingLabelText="Currency" value={this.state.currency} onChange={this.setCurrency} fullWidth={true}>
+            <MenuItem value="UAH" primaryText="UAH" />
+            <MenuItem value="USD" primaryText="USD" />
+            <MenuItem value="EUR" primaryText="EUR" />
+          </SelectField>
           <br />
-          <TextField hintText="A few strokes about your event" onChange={this.setDescription} />
+          <TextField hintText="A few strokes about your event"
+            onChange={this.setDescription} fullWidth={true} />
           <br />
         </Dialog>
       </div>

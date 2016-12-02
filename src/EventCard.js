@@ -5,7 +5,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 class EventCard extends React.Component {
   render() {
     return (
-      <Card>
+      <Card style={{ marginBottom: 10 }}>
         <CardHeader title={this.props.name} subtitle={`by ${this.props.creator}`} avatar={this.props.creatorPhotoUrl}/>
         <CardMedia
           overlay={<CardTitle title={`Hosted at ${this.props.place}`} subtitle={`Price: ${this.props.price}`}/>}>
@@ -22,8 +22,8 @@ class EventCard extends React.Component {
 export default class EventsList extends React.Component {
   render() {
     return (
-      <div style={this.props.style}>
-        {this.props.events.map(e => <EventCard key={e.id} {...e} />)}
+      <div>
+        {this.props.events.map(e => <EventCard key={e['.key']} {...e} />)}
       </div>
     );
   }
