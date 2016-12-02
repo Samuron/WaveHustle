@@ -33,21 +33,6 @@ const App = React.createClass({
             Feed
           </MenuItem>
           <MenuItem
-            onClick={e => this.context.router.push('/friends') }
-            leftIcon={<FontIcon className="fa fa-users"/>}>
-            Friends
-          </MenuItem>
-          <MenuItem
-            onClick={e => this.context.router.push('/broadcast') }
-            leftIcon={<FontIcon className="fa fa-video-camera"/>}>
-            Broadcast
-          </MenuItem>
-          <MenuItem
-            onClick={e => this.context.router.push('/subscription') }
-            leftIcon={<FontIcon className="fa fa-users"/>}>
-            Subscriptions
-          </MenuItem>
-          <MenuItem
             onClick={e => firebase.auth().signOut() }
             leftIcon={<FontIcon className="fa fa-sign-out"/>}>
             Sign out
