@@ -71,7 +71,12 @@ export default class Dashboard extends Component {
       let threads = resp.val();
       let output = [];
       Object.keys(threads).forEach((threadKey) => {
-          output.push({id: threadKey, ...threads[threadKey]});
+          let isAvaliable = (!threads[threadKey].isPrivate ||
+            (threads[threadKey].hasOwnProperty('users') 
+            && threads[threadKey]['users'].includes(firebase.auth().currentUser.uid)));
+          if (isAvaliable) {
+            output.push({id: threadKey, ...threads[threadKey]});
+          }
       });
       this.setState({threads: output});
     });
