@@ -16,11 +16,11 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
 const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyALm6LHiGIX7a9mDGJg480lcIdgYrj1hzY",
-  authDomain: "wavehustle-bfc5e.firebaseapp.com",
-  databaseURL: "https://wavehustle-bfc5e.firebaseio.com",
-  storageBucket: "",
-  messagingSenderId: "564370259273"
+  apiKey: "AIzaSyD9aT-N7s3tqOO1rgFPD8dVgh4ojL7YGLs",
+  authDomain: "wavehustle-abaaa.firebaseapp.com",
+  databaseURL: "https://wavehustle-abaaa.firebaseio.com",
+  storageBucket: "wavehustle-abaaa.appspot.com",
+  messagingSenderId: "1063127459803"
 };
 
 firebase.initializeApp(FIREBASE_CONFIG);
