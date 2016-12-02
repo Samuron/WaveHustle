@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import {List, ListItem} from 'material-ui/List';
+import { List, ListItem } from 'material-ui/List';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 
 import { values, reverse } from 'lodash';
 
@@ -21,28 +21,14 @@ const opts = {
 export default class AddThread extends Component {
   constructor(props) {
     super(props);
-
+    var user = firebase.auth().currentUser;
     this.state = {
       name: "",
       photoUrl: "",
-      user: firebase.auth().currentUser,
-      userName: "",
-      userPhotoUrl: ""
+      userName: user.displayName,
+      userPhotoUrl: user.photoURL,
     };
 
-  }
-
-  componentDidMount() {
-    this.userRef = firebase.database().ref(`/users/${this.state.user.uid}`);
-
-    this.userRef
-      .on('value', snapshot => {
-        const value = snapshot.val();
-        this.setState({ 
-            userName: value.displayName,
-            userPhotoUrl: value.photoUrl
-        });
-      });
   }
 
   postThread() {
@@ -63,16 +49,16 @@ export default class AddThread extends Component {
             title="Create new thread"
             subtitle="Unique it!"
             />
-          <CardTitle title="What it is about?"/>
+          <CardTitle title="What it is about?" />
           <CardText>
             <TextField hintText="Name" ref="name" />
           </CardText>
-          <CardTitle title="Picture it!"/>
+          <CardTitle title="Picture it!" />
           <CardText>
             <TextField hintText="Add picture link" ref="photoUrl" />
           </CardText>
           <CardActions>
-            <RaisedButton onClick={() => this.postThread() } label="Post" />
+            <RaisedButton onClick={() => this.postThread()} label="Post" />
           </CardActions>
         </Card>
       </div>
