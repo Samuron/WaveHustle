@@ -37,7 +37,7 @@ export default class AddThread extends Component {
       userName: user.displayName,
       userPhotoUrl: user.photoURL,
       open: false,
-      category: null,
+      categoryId: null,
     };
   }
 
@@ -66,7 +66,7 @@ export default class AddThread extends Component {
       name: this.state.name,
       photoUrl: this.state.photoUrl,
       isPrivate: false,
-      category: this.state.category
+      category: find(CATEGORIES, cat => cat.id === this.state.categoryId)
     });
     this.handleClose();
   }
@@ -109,14 +109,14 @@ export default class AddThread extends Component {
           <br />
           <SelectField
             hintText="Category"
-            value={this.state.category ? this.state.category.id : null}
-            onChange={(e, value) => {
+            value={this.state.categoryId}
+            onChange={(e, index, value) => {
               this.setState({
-                category: find(CATEGORIES, cat => cat.id === value)
+                categoryId: value
               })
             }}
           >
-            {CATEGORIES.map(category => <MenuItem key={category.id} value={category.id} primaryText={category.name} />)}
+            {CATEGORIES.map((category) => <MenuItem key={category.id} value={category.id} primaryText={category.name} />)}
           </SelectField>
         </Dialog>
       </div>

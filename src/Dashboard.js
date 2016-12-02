@@ -115,7 +115,8 @@ class DashboardComponent extends Component {
                     style={
                       {
                         ...gridStyles.tile,
-                        background: thread.photoUrl ? 'url(' + thread.photoUrl + ')' : 'grey'
+                        background: thread.photoUrl ? 'url(' + thread.photoUrl + ')' : 'grey',
+                        backgroundSize: 'cover'
                       }
                     }
                     title={thread.name}
