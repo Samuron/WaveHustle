@@ -37,6 +37,9 @@ export default class AddEvent extends React.Component {
   setCurrency = (e, i, currency) => { this.setState({ currency }); };
 
   saveToDb = () => {
+    if (!this.state.name || !this.state.place || this.state.photoUrl) {
+      return false
+    }
 
     console.log(this.state);
 
