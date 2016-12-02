@@ -35,9 +35,9 @@ export default class AddThread extends Component {
   }
 
   handleOpen = () => { this.setState({ open: true }); };
-  handleClose = () => { 
+  handleClose = () => {
     this.clear();
-    this.setState({ open: false }); 
+    this.setState({ open: false });
   };
 
   postThread = () => {
@@ -73,7 +73,7 @@ export default class AddThread extends Component {
 
     return (
       <div>
-        <RaisedButton label="Add event" onTouchTap={this.handleOpen} />
+        <RaisedButton label="Add thread" onTouchTap={this.handleOpen} />
         <Dialog title="Create new thread" actions={actions} modal={true} open={this.state.open}>
           <br />
           Whats is it about?

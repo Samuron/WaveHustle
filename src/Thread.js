@@ -4,7 +4,7 @@ import AddEvent from './AddEvent';
 import EventsList from './EventCard';
 import firebase from 'firebase';
 import { map, orderBy } from 'lodash';
-
+import TextField from 'material-ui/TextField';
 
 export default class Thread extends Component {
   constructor(props) {
@@ -13,10 +13,12 @@ export default class Thread extends Component {
     const { threadId } = this.props.params;
     this.threadRf = firebase.database().ref(`/threads/${threadId}`);
     this.eventsRf = firebase.database().ref(`/threads/${threadId}/events`);
+
     this.state = {
       messages: [],
       events: [],
       user: firebase.auth().currentUser,
+      searchQuery: ''
     }
   }
 
@@ -64,19 +66,28 @@ export default class Thread extends Component {
   }
 
   render() {
+    const events = !this.state.searchQuery ? this.state.events : this.state.events.filter(event => {
+      return event.name.toLowerCase().indexOf(this.state.searchQuery) > -1
+    });
+
     return (
       <div style={{ width: 1200, margin: '0 auto'}}>
-        <div className="event-content" style={{ width: 870, float: 'left', height: 1000}}>
+        <div className="event-content" style={{ width: 870, float: 'left', height: 1000, overflowY: 'scroll'}}>
           <AddEvent threadId={this.props.params.threadId} />
+          <div style={{background: 'rgb(48, 48, 48)', margin: '10px 0 0 0', padding: '0 10px'}}>
+            <TextField hintText="Search...."
+                       fullWidth={true}
+                       onChange={e => this.setState({ searchQuery: e.target.value.toLowerCase() })}/>
+          </div>
           <br />
           {
-            this.state.events.length ? <EventsList events={this.state.events} threadId={this.props.params.threadId} /> :
+            events.length ? <EventsList events={events} threadId={this.props.params.threadId}/> :
               <p style={{ textAlign: 'center', fontSize: 18  }}>
                 nothing found
               </p>
           }
       </div>
-        <div className="chat" style={{ width: 300, marginTop: 55, float: 'right', position: 'relative'}}>
+        <div className="chat" style={{ width: 300, marginTop: 45, float: 'right', position: 'relative'}}>
           <Chat onMessageSubmit={this.addNewMessage} messages={this.state.messages} />
         </div>
       </div>

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import { Link } from 'react-router'
-import {List, ListItem} from 'material-ui/List';
+import IconButton from 'material-ui/IconButton';
 import {GridList, GridTile} from 'material-ui/GridList';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentClear from 'material-ui/svg-icons/content/clear';
+import RaisedButton from 'material-ui/RaisedButton';
 import AddThread from './AddThread'
 
 const gridStyles = {
@@ -19,10 +18,9 @@ const gridStyles = {
     overflowY: 'auto'
   },
   addButton: {
-    marginTop: 10,
-    display: 'flex',
-    background: 'none',
-    boxShadow: 'none'
+    marginBottom: 10,
+    width: 200,
+    textAlign: 'center'
   },
   tile: {
     background: '#444',
@@ -99,26 +97,30 @@ class DashboardComponent extends Component {
 
     return (
       <div style={gridStyles.root}>
-        <FloatingActionButton style={gridStyles.addButton}>
-           <AddThread />
-        </FloatingActionButton>
+        <RaisedButton label="Add thread" onTouchTap={this.handleOpen} style={gridStyles.addButton}>
+          <AddThread />
+        </RaisedButton>
 
         <GridList style={gridStyles.gridList}>
           {
             this.props.threads.map((thread) => {
               return (
-                <Link to={`/thread/${thread.id}`} key={thread.id}>
+                <Link key={thread.id} to={`/thread/${thread.id}`}>
                   <GridTile
                     style={
                       {
                         ...gridStyles.tile,
                         background: thread.photoUrl ? 'url(' + thread.photoUrl + ')' : 'grey'
                       }
-                    }>
-                      <div style={listItemTitleStyle}>{thread.name}: {thread.id}</div>
-                      <div style={listItemIconContainerStyle}>
-                        <ContentClear style={listItemIconStyle} data-val={thread.id} onClick={this.props.removeThread}/>
-                      </div>
+                    }
+                    title={thread.name}
+                    subtitle={<span>by <b>{thread.creator}</b></span>}
+                    actionIcon={
+                      <IconButton data-val={thread.id} onClick={this.props.removeThread}>
+                        <ContentClear style={listItemIconStyle} data-val={thread.id} />
+                      </IconButton>
+                    }
+                    >
                   </GridTile>
                 </Link>
               );
