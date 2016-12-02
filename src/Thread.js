@@ -87,7 +87,7 @@ export default class Thread extends Component {
               </p>
           }
       </div>
-        <div className="chat" style={{ width: 300, marginTop: 55, float: 'right', position: 'relative'}}>
+        <div className="chat" style={{ width: 300, marginTop: 45, float: 'right', position: 'relative'}}>
           <Chat onMessageSubmit={this.addNewMessage} messages={this.state.messages} />
         </div>
       </div>
