@@ -22,8 +22,11 @@ const App = React.createClass({
     return (
       <div>
         <AppBar style={{ position: 'fixed', top: 0, left: 0 }}
-          onLeftIconButtonTouchTap={e => firebase.auth().signOut()}
-          iconClassNameLeft="fa fa-sign-out"
+                title={firebase.auth().currentUser.displayName}
+                onLeftIconButtonTouchTap={e => this.context.router.push('/')}
+                onRightIconButtonTouchTap={e => firebase.auth().signOut()}
+                iconClassNameRight="fa fa-sign-out"
+                iconClassNameLeft="fa fa-home"
           />
         <div style={{ paddingTop: this.context.muiTheme.spacing.desktopKeylineIncrement }}>
           {this.props.children}

@@ -39,7 +39,9 @@ export default class Chat extends Component {
     messages: []
   };
 
-  submit() {
+  submit(e) {
+    e.preventDefault();
+    
     if (this.state.message) {
       this.props.onMessageSubmit(this.state.message);
       // after submit
@@ -49,28 +51,36 @@ export default class Chat extends Component {
     }
   }
 
+  componentDidUpdate() {
+    this.listNode.scrollTop = this.listNode.scrollHeight;
+  }
+
   render() {
     return (
       <div style={style}>
-        <List style={{paddingBottom: 0, height: 245, overflow: 'scroll'}}>
-          <Subheader>Recent chats</Subheader>
-          {this.props.messages.map(({ message, id, photoUrl}) => (
-            <ListItem
-              innerDivStyle={listItemStyle}
-              key={id}
-              primaryText={<p style={textStyle}>{message}</p>}
-              leftAvatar={<Avatar src={photoUrl} />}
-            />
-          ))}
-        </List>
+        <div style={{height: 245, overflow: 'scroll'}} ref={node => {this.listNode = node}}>
+          <List style={{paddingBottom: 0}}>
+            <Subheader>Recent chats</Subheader>
+            {this.props.messages.map(({ message, id, photoUrl}) => (
+              <ListItem
+                innerDivStyle={listItemStyle}
+                key={id}
+                primaryText={<p style={textStyle}>{message}</p>}
+                leftAvatar={<Avatar src={photoUrl} />}
+              />
+            ))}
+          </List>
+        </div>
         <div style={{padding: '0 0 0 10px'}}>
-          <TextField name="message"
-                     value={this.state.message}
-                     style={{ width: 240, fontSize: 12 }}
-                     onChange={(e) => this.setState({ message: e.target.value })} />
-          <IconButton iconStyle={{width: 30, height: 30}}
-                      onClick={e => this.submit()}
-                      iconClassName="fa fa-paper-plane" />
+          <form onSubmit={e => this.submit(e)}>
+            <TextField name="message"
+                       value={this.state.message}
+                       style={{ width: 240, fontSize: 12 }}
+                       onChange={(e) => this.setState({ message: e.target.value })} />
+            <IconButton iconStyle={{width: 30, height: 30}}
+                        onClick={e => this.submit(e)}
+                        iconClassName="fa fa-paper-plane" />
+          </form>
         </div>
       </div>
     );

@@ -41,7 +41,7 @@ const Navigation = (
     <Router history={hashHistory}>
       <Route path="/" component={App} onEnter={checkToken}>
         <IndexRoute component={Dashboard} />
-        <Route path="/thread" component={Thread} />
+        <Route path="/thread/:threadId" component={Thread} />
       </Route>
       <Route path="/login" component={Login} />
     </Router>
