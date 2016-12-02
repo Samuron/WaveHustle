@@ -67,7 +67,13 @@ export default class Thread extends Component {
 
   render() {
     const events = !this.state.searchQuery ? this.state.events : this.state.events.filter(event => {
-      return event.name.toLowerCase().indexOf(this.state.searchQuery) > -1
+      const name = event.name.toLowerCase();
+      const place = event.place.toLowerCase();
+      const creator = event.creator.toLowerCase();
+      
+      return name.indexOf(this.state.searchQuery) > -1 ||
+             place.indexOf(this.state.searchQuery) > -1 ||
+             creator.indexOf(this.state.searchQuery) > -1;
     });
 
     return (
