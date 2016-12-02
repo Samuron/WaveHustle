@@ -93,7 +93,7 @@ export default class AddThread extends Component {
           autoScrollBodyContent={true}
           title="Create new thread"
           actions={actions}
-          modal={true} 
+          modal={true}
           open={this.state.open}>
           <br />
           Whats is it about?
