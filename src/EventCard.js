@@ -81,8 +81,8 @@ class EventCard extends React.Component {
           <RaisedButton label="I'll go" onTouchTap={this.visitEvent} />
           <RaisedButton label="Show visitors" onTouchTap={this.handleOpen} />
           <Dialog modal={false} open={this.state.openVisitors} onRequestClose={this.handleClose} >
-            <List>
-              <Subheader>You can meet these awesome guys</Subheader>
+            <List style={{ maxHeight: 300, overflowY: 'auto'}}>
+             <Subheader>You can meet these awesome guys</Subheader>
               {this.state.visitors.map(e => <Visitor {...e} />)}
             </List>
           </Dialog>
