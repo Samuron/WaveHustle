@@ -11,6 +11,10 @@ const listStyle = {
   marginBottom: '1em'
 };
 
+const listItemStyle = {
+  margin: '0.5em 0'
+};
+
 const listItemTitleStyle = {
   color: 'white',
   verticalAlign: 'middle',
@@ -27,12 +31,7 @@ export default class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      threads: [
-        {
-          name: 'govno',
-          id: 'povidlo'
-        }
-      ]
+      threads: []
     };
   }
 
@@ -42,6 +41,18 @@ export default class Dashboard extends Component {
 
   removeThread(el) {
     console.log(el.currentTarget.getAttribute('data-val'));
+  }
+
+  componentDidMount() {
+    this.threadsRef = firebase.database().ref(`/threads`);
+    this.threadsRef.on('value', (resp) => {
+      let threads = resp.val();
+      let output = [];
+      Object.keys(threads).forEach((threadKey) => {
+          output.push({id: threadKey, ...threads[threadKey]});
+      });
+      this.setState({threads: output});
+    });
   }
 
   render() {
@@ -69,7 +80,7 @@ class DashboardComponent extends Component {
           {
             this.props.threads.map((thread) => {
               return (
-                <ListItem key={thread.id}>
+                <ListItem style={listItemStyle} key={thread.id}>
                   <Link to={'/thread'}>
                     <div style={listItemTitleStyle}>{thread.name}: {thread.id}</div>
                   </Link>
