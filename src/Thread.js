@@ -25,7 +25,7 @@ export default class Thread extends Component {
       var events = [];
       snapshot.forEach((child) => {
         var item = child.val();
-        item['.key'] = child.key;
+        item.id = child.key;
         events.push(item);
       });
 
@@ -70,7 +70,7 @@ export default class Thread extends Component {
           <AddEvent threadId={this.props.params.threadId} />
           <br />
           {
-            this.state.events.length ? <EventsList events={this.state.events} /> :
+            this.state.events.length ? <EventsList events={this.state.events} threadId={this.props.params.threadId} /> :
               <p style={{ textAlign: 'center', fontSize: 18  }}>
                 nothing found
               </p>
