@@ -2,20 +2,14 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import { List, ListItem } from 'material-ui/List';
 import TextField from 'material-ui/TextField';
+import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 
 import { values, reverse } from 'lodash';
 
 const style = {
-  width: 500,
-  margin: 'auto'
-};
-
-const opts = {
-  width: '500',
-  height: '300',
-  frameBorder: '0'
+  width: '100%'
 };
 
 export default class AddThread extends Component {
@@ -27,6 +21,7 @@ export default class AddThread extends Component {
       photoUrl: "",
       userName: user.displayName,
       userPhotoUrl: user.photoURL,
+      open: false
     };
   }
 
@@ -36,6 +31,14 @@ export default class AddThread extends Component {
       photoUrl: ""
     })
   }
+
+  handleOpen() { 
+    this.setState({ open: true }); 
+  };
+
+  handleClose() { 
+    this.setState({ open: false }); 
+  };
 
   postThread() {
     if (this.refs.name.getValue() == "") {
@@ -54,35 +57,38 @@ export default class AddThread extends Component {
   }
 
   render() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+        />,
+      <FlatButton
+        label="Create"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.postThread}
+        />,
+    ];
+
     return (
       <div>
-        <Card style={style}>
-          <CardHeader
-            title="Create new thread"
-            subtitle="Unique it!"
+        <Dialog title="Create new thread" actions={actions} modal={true} open={this.state.open}>
+          <TextField
+            hintText="Name"
+            ref="name"
+            value={this.state.name}
+            onChange={(event) => this.setState({ name: event.target.value })}
             />
-          <CardTitle title="What it is about?" />
-          <CardText>
-            <TextField
-              hintText="Name"
-              ref="name"
-              value={this.state.name}
-              onChange={(event) => this.setState({ name: event.target.value })}
-              />
-          </CardText>
-          <CardTitle title="Picture it!" />
-          <CardText>
-            <TextField
-              hintText="Add picture link"
-              ref="photoUrl"
-              value={this.state.photoUrl}
-              onChange={(event) => this.setState({ photoUrl: event.target.value })}
-              />
-          </CardText>
-          <CardActions>
-            <RaisedButton onClick={() => this.postThread()} label="Post" />
-          </CardActions>
-        </Card>
+          <br />
+          <TextField
+            hintText="Add picture link"
+            ref="photoUrl"
+            value={this.state.photoUrl}
+            onChange={(event) => this.setState({ photoUrl: event.target.value })}
+          />
+          <br />
+        </Dialog>
       </div>
     )
   }
