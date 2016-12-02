@@ -121,7 +121,7 @@ class DashboardComponent extends Component {
                         backgroundRepeat: 'no-repeat'
                       }
                     }
-                    title={thread.name}
+                    title={thread.name + (thread.isPrivate ? ' (PRIVATE)' : '')}
                     subtitle={
                       <span>
                         by <b>{thread.creator}</b>
