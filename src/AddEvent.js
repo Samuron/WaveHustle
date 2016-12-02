@@ -94,8 +94,7 @@ export default class AddEvent extends React.Component {
           <DatePicker floatingLabelText="Date"
             hintText="Bro, do you even know when?"
             onChange={this.setDate} fullWidth={true} />
-          <br />
-          <TextField floatingLabelText="Photo url" hintText="Share a photo?" onChange={this.setPhotoUrl} fullWidth={true} />
+          <TextField floatingLabelText="Photo url" onChange={this.setPhotoUrl} fullWidth={true} />
           <br />
           <TextField floatingLabelText="Price"
             hintText="The best things in life are free"
