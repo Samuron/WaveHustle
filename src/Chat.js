@@ -4,6 +4,7 @@ import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
+import Divider from 'material-ui/Divider';
 
 const listItemStyle = {
   paddingTop: 10,
@@ -89,11 +90,13 @@ export default class Chat extends Component {
             ))}
           </List>
         </div>
-        <div style={{padding: '0 0 0 10px'}}>
+        <Divider />
+        <div style={{padding: '0 0 0 0px'}}>
           <form onSubmit={e => this.submit(e)}>
             <TextField name="message"
                        value={this.state.message}
                        style={{ width: 240, fontSize: 12 }}
+                       inputStyle={{ paddingLeft: 10 }}
                        onChange={(e) => this.setState({ message: e.target.value })} />
             <IconButton iconStyle={{width: 30, height: 30}}
                         onClick={e => this.submit(e)}
