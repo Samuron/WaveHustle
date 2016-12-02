@@ -59,6 +59,8 @@ export default class Dashboard extends Component {
   }
 
   removeThread(el) {
+    el.preventDefault();
+    el.stopPropagation();
     let threadId = el.currentTarget.getAttribute('data-val');
     let threadRef = firebase.database().ref(`/threads/` + threadId);
     threadRef.remove();
