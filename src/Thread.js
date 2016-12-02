@@ -5,8 +5,9 @@ import EventsList from './EventCard';
 import firebase from 'firebase';
 import { map, orderBy } from 'lodash';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
-
+import TextField from 'material-ui/TextField';
 
 export default class Thread extends Component {
   constructor(props) {
@@ -15,13 +16,15 @@ export default class Thread extends Component {
     const { threadId } = this.props.params;
     this.threadRf = firebase.database().ref(`/threads/${threadId}`);
     this.eventsRf = firebase.database().ref(`/threads/${threadId}/events`);
+
     this.state = {
       messages: [],
       events: [],
       user: firebase.auth().currentUser,
       thread: {
         isPrivate: true
-      }
+      },
+      searchQuery: ''
     }
   }
 
@@ -30,7 +33,7 @@ export default class Thread extends Component {
       var events = [];
       snapshot.forEach((child) => {
         var item = child.val();
-        item['.key'] = child.key;
+        item.id = child.key;
         events.push(item);
       });
 
@@ -77,22 +80,39 @@ export default class Thread extends Component {
   }
 
   render() {
+    const events = !this.state.searchQuery ? this.state.events : this.state.events.filter(event => {
+      const name = event.name.toLowerCase();
+      const place = event.place.toLowerCase();
+      const creator = event.creator.toLowerCase();
+
+      return name.indexOf(this.state.searchQuery) > -1 ||
+             place.indexOf(this.state.searchQuery) > -1 ||
+             creator.indexOf(this.state.searchQuery) > -1;
+    });
+
     return (
       <div style={{ width: 1200, margin: '0 auto'}}>
-        <div className="event-content" style={{ width: 870, float: 'left', height: 1000}}>
+        <div className="event-content" style={{ width: 870, float: 'left'}}>
           <AddEvent threadId={this.props.params.threadId} />
           {this.state.thread.isPrivate ? '' : (<RaisedButton label="Make private"
                         onTouchTap={this.makePrivate.bind(this)}>
           </RaisedButton>)}
+          <div style={{background: 'rgb(48, 48, 48)', margin: '10px 0 0 0', padding: '0 10px'}}>
+            <TextField hintText="Search...."
+                       fullWidth={true}
+                       onChange={e => this.setState({ searchQuery: e.target.value.toLowerCase() })}/>
+          </div>
           <br />
-          {
-            this.state.events.length ? <EventsList events={this.state.events} /> :
-              <p style={{ textAlign: 'center', fontSize: 18  }}>
-                nothing found
-              </p>
-          }
+          <div style={{height: 800, overflowY: 'scroll'}}>
+            {
+              events.length ? <EventsList events={events} threadId={this.props.params.threadId}/> :
+                <p style={{ textAlign: 'center', fontSize: 18  }}>
+                  nothing found
+                </p>
+            }
+          </div>
       </div>
-        <div className="chat" style={{ width: 300, marginTop: 55, float: 'right', position: 'relative'}}>
+        <div className="chat" style={{ width: 300, marginTop: 45, float: 'right', position: 'relative'}}>
           <Chat onMessageSubmit={this.addNewMessage} messages={this.state.messages} />
         </div>
       </div>
