@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import firebase from 'firebase'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 
 import App from './App';
 import Login from './Login';
@@ -37,7 +37,7 @@ const checkToken = (nextState, replace, next) => {
 
 const Navigation = (
   <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
       <Route path="/" component={Dashboard} onEnter={checkToken}>
         <IndexRoute component={Feed} />
       </Route>
