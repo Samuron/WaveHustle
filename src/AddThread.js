@@ -28,10 +28,21 @@ export default class AddThread extends Component {
       userName: user.displayName,
       userPhotoUrl: user.photoURL,
     };
+  }
 
+  clear() {
+    this.setState({
+      name: "",
+      photoUrl: ""
+    })
   }
 
   postThread() {
+    if (this.refs.name.getValue() == "") {
+      this.clear();
+      return;
+    }
+
     var thread = firebase.database().ref('/threads/').push({
       creator: this.state.userName,
       creatorPhotoUrl: this.state.userPhotoUrl,
@@ -39,6 +50,7 @@ export default class AddThread extends Component {
       photoUrl: this.refs.photoUrl.getValue(),
       isPrivate: false
     });
+    this.clear();
   }
 
   render() {
@@ -51,11 +63,21 @@ export default class AddThread extends Component {
             />
           <CardTitle title="What it is about?" />
           <CardText>
-            <TextField hintText="Name" ref="name" />
+            <TextField
+              hintText="Name"
+              ref="name"
+              value={this.state.name}
+              onChange={(event) => this.setState({ name: event.target.value })}
+              />
           </CardText>
           <CardTitle title="Picture it!" />
           <CardText>
-            <TextField hintText="Add picture link" ref="photoUrl" />
+            <TextField
+              hintText="Add picture link"
+              ref="photoUrl"
+              value={this.state.photoUrl}
+              onChange={(event) => this.setState({ photoUrl: event.target.value })}
+              />
           </CardText>
           <CardActions>
             <RaisedButton onClick={() => this.postThread()} label="Post" />
