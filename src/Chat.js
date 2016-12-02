@@ -20,7 +20,7 @@ const textStyle = {
 
 const style = {
   width: 300,
-  height: 300,
+  maxHeight: 500,
   textAlign: 'left',
   display: 'inline-block',
   float: 'right',
@@ -77,7 +77,7 @@ export default class Chat extends Component {
   render() {
     return (
       <div style={style}>
-        <div style={{height: 245, overflow: 'scroll'}} ref={node => {this.listNode = node}}>
+        <div style={{height: 445, overflow: 'auto'}} ref={node => {this.listNode = node}}>
           <List style={{paddingBottom: 0}}>
             <Subheader>Recent chats</Subheader>
             {this.props.messages.map(({ message, id, time, name, photoUrl}) => (
@@ -94,9 +94,9 @@ export default class Chat extends Component {
         <div style={{padding: '0 0 0 0px'}}>
           <form onSubmit={e => this.submit(e)}>
             <TextField name="message"
+                       hintText="type message..."
                        value={this.state.message}
-                       style={{ width: 240, fontSize: 12 }}
-                       inputStyle={{ paddingLeft: 10 }}
+                       style={{ width: 240, fontSize: 12, paddingLeft: 10 }}
                        onChange={(e) => this.setState({ message: e.target.value })} />
             <IconButton iconStyle={{width: 30, height: 30}}
                         onClick={e => this.submit(e)}

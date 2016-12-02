@@ -22,8 +22,8 @@ class EventCard extends React.Component {
 export default class EventsList extends React.Component {
   render() {
     return (
-      <div style={this.props.style}>
-        {this.props.events.map(e => <EventCard key={e.id} {...e} />)}
+      <div>
+        {this.props.events.map(e => <EventCard key={e['.key']} {...e} />)}
       </div>
     );
   }

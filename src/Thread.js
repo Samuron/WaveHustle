@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Chat from './Chat';
 import AddEvent from './AddEvent';
-import EventCard from './EventCard';
+import EventsList from './EventCard';
 import firebase from 'firebase';
 import { map, orderBy } from 'lodash';
 
@@ -55,7 +55,6 @@ export default class Thread extends Component {
     const { threadId } = this.props.params;
     console.log('add new message', messageText);
 
-    // TODO: get thread id
     firebase.database().ref(`/threads/${threadId}/chat`).push({
       message: messageText,
       name: this.state.user.displayName,
@@ -66,10 +65,15 @@ export default class Thread extends Component {
 
   render() {
     return (
-      <div>
-        <AddEvent threadId={this.props.params.threadId} />
-        <EventCard style={{ width: 300, background: 'red'}} events={this.state.events} />
-        <Chat onMessageSubmit={this.addNewMessage} messages={this.state.messages} />
+      <div style={{ width: 1200, margin: '0 auto'}}>
+        <div className="event-content" style={{ width: 870, float: 'left', height: 1000}}>
+          <AddEvent threadId={this.props.params.threadId} />
+          <br />
+          <EventsList events={this.state.events} />
+      </div>
+        <div className="chat" style={{ width: 300, marginTop: 55, float: 'right'}}>
+          <Chat onMessageSubmit={this.addNewMessage} messages={this.state.messages} />
+        </div>
       </div>
     );
   }
