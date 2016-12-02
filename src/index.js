@@ -6,6 +6,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import App from './App';
 import Login from './Login';
 import Feed from './Feed';
+import Dashboard from './Dashboard';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
@@ -37,7 +38,7 @@ const checkToken = (nextState, replace, next) => {
 const Navigation = (
   <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
     <Router history={browserHistory}>
-      <Route path="/" component={App} onEnter={checkToken}>
+      <Route path="/" component={Dashboard} onEnter={checkToken}>
         <IndexRoute component={Feed} />
         <Route path="/feed" component={Feed} />
       </Route>
