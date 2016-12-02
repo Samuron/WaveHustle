@@ -74,10 +74,11 @@ export default class Thread extends Component {
       <div style={{ width: 1200, margin: '0 auto'}}>
         <div className="event-content" style={{ width: 870, float: 'left', height: 1000, overflowY: 'scroll'}}>
           <AddEvent threadId={this.props.params.threadId} />
-          <TextField style={{background: 'rgb(48, 48, 48)', padding: '0 10px'}}
-                     hintText="Search...."
-                     fullWidth={true}
-                     onChange={e => this.setState({ searchQuery: e.target.value.toLowerCase() })}/>
+          <div style={{background: 'rgb(48, 48, 48)', margin: '10px 0 0 0', padding: '0 10px'}}>
+            <TextField hintText="Search...."
+                       fullWidth={true}
+                       onChange={e => this.setState({ searchQuery: e.target.value.toLowerCase() })}/>
+          </div>
           <br />
           {
             events.length ? <EventsList events={events} /> :
