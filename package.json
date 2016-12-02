@@ -1,25 +1,15 @@
 {
-  "name": "videohustle",
+  "name": "wavehustle",
   "version": "1.0.0",
-  "description": "Share YouTube and porn links",
+  "description": "Share events",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "express": "node server.js",
     "start": "webpack-dev-server --content-base ./ --port 3000"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Samuron/VideoHustle.git"
-  },
-  "keywords": [
-    "YouTube"
-  ],
   "author": "",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Samuron/VideoHustle/issues"
-  },
-  "homepage": "https://github.com/Samuron/VideoHustle#readme",
   "devDependencies": {
     "babel-core": "^6.14.0",
     "babel-eslint": "^6.1.2",
@@ -34,6 +24,7 @@
     "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
+    "express": "^4.14.0",
     "firebase": "^3.6.2",
     "firebase-util": "^0.2.5",
     "lodash": "^4.15.0",

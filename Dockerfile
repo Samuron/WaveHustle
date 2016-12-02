@@ -1,13 +1,18 @@
-FROM node:argon
+FROM node:latest
 
-RUN mkdir -p /app
-WORKDIR /app
+# Create app directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
-COPY bundle.js /app/
-COPY index.html /app/
+# Install app dependencies
+COPY package.json /usr/src/app/
+RUN npm install webpack -g
+RUN npm install
 
-RUN npm install http-server -g
+# Bundle app source
+COPY . /usr/src/app
+COPY ./index.html /usr/src/app/dist
+RUN webpack
 
-EXPOSE 8888
-
-CMD [ "http-server", "-p 8888" ]
+EXPOSE 3000
+CMD [ "npm", "run", "express" ]
