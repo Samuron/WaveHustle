@@ -36,8 +36,8 @@ export default class AddEvent extends React.Component {
   setDescription = (e, description) => { this.setState({ description }); };
   setCurrency = (e, i, currency) => { this.setState({ currency }); };
 
-  saveToDb = () => {
-    if (!this.state.name || !this.state.place || this.state.photoUrl) {
+  saveToDb = () => {saveTo
+    if (!this.state.name || !this.state.place || !this.state.photoUrl) {
       return false
     }
 
@@ -68,7 +68,7 @@ export default class AddEvent extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.saveToDb}
+        onTouchTap={this.Db}
         />,
     ];
     var dialogStyle = {
