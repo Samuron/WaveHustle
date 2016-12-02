@@ -17,8 +17,9 @@ export default class Thread extends Component {
   }
 
   componentWillMount() {
-    this.threadRf = firebase.database().ref(`/threads/thread_id_1`);
-    
+    const { threadId } = this.props.params;
+    this.threadRf = firebase.database().ref(`/threads/${threadId}`);
+
     this.threadRf
       .on('value', snapshot => {
         const thread = snapshot.val();
@@ -36,10 +37,11 @@ export default class Thread extends Component {
   }
 
   addNewMessage(messageText) {
+    const { threadId } = this.props.params;
     console.log('add new message', messageText);
 
     // TODO: get thread id
-    firebase.database().ref(`/threads/thread_id_1/chat`).push({
+    firebase.database().ref(`/threads/${threadId}/chat`).push({
       message: messageText,
       name: this.state.user.displayName,
       photoUrl: this.state.user.photoURL,

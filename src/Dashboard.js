@@ -81,7 +81,7 @@ class DashboardComponent extends Component {
             this.props.threads.map((thread) => {
               return (
                 <ListItem style={listItemStyle} key={thread.id}>
-                  <Link to={'/thread'}>
+                  <Link to={`/thread/${thread.id}`}>
                     <div style={listItemTitleStyle}>{thread.name}: {thread.id}</div>
                   </Link>
                   <div style={listItemIconStyle}>
