@@ -26,6 +26,24 @@ const style = {
   background: 'rgb(0, 151, 167)'
 };
 
+function ChatMessage({ message, name, time }) {
+  const timeFormatted = new Date(time);
+  let minutes = timeFormatted.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`
+  }
+
+  return (
+    <p style={textStyle}>
+      <span style={{color: 'rgb(72, 72, 72)'}}>
+        {name}
+        <i style={{ marginLeft: 10 }}>{timeFormatted.getHours()}:{minutes}</i>
+      </span><br />
+      {message}
+    </p>
+  )
+}
+
 export default class Chat extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +59,7 @@ export default class Chat extends Component {
 
   submit(e) {
     e.preventDefault();
-    
+
     if (this.state.message) {
       this.props.onMessageSubmit(this.state.message);
       // after submit
@@ -61,11 +79,11 @@ export default class Chat extends Component {
         <div style={{height: 245, overflow: 'scroll'}} ref={node => {this.listNode = node}}>
           <List style={{paddingBottom: 0}}>
             <Subheader>Recent chats</Subheader>
-            {this.props.messages.map(({ message, id, photoUrl}) => (
+            {this.props.messages.map(({ message, id, time, name, photoUrl}) => (
               <ListItem
                 innerDivStyle={listItemStyle}
                 key={id}
-                primaryText={<p style={textStyle}>{message}</p>}
+                primaryText={<ChatMessage message={message} time={time} name={name} />}
                 leftAvatar={<Avatar src={photoUrl} />}
               />
             ))}
