@@ -75,7 +75,11 @@ export default class AddEvent extends React.Component {
     return (
       <div>
         <RaisedButton label="Add event" onTouchTap={this.handleOpen} />
-        <Dialog title="Tell us about event" actions={actions} modal={true} open={this.state.open}>
+        <Dialog autoScrollBodyContent={true}
+                title="Tell us about event"
+                actions={actions}
+                modal={true}
+                open={this.state.open}>
           <TextField floatingLabelText="Name"
             hintText="How would you like it to be called?"
             onChange={this.setName} fullWidth={true} />
