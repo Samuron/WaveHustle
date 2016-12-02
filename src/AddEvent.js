@@ -68,7 +68,7 @@ export default class AddEvent extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.Db}
+        onTouchTap={this.saveToDb}
         />,
     ];
     var dialogStyle = {
