@@ -104,21 +104,20 @@ class DashboardComponent extends Component {
           {
             this.props.threads.map((thread) => {
               return (
-                <GridTile
-                  style={
-                    {
-                      ...gridStyles.tile,
-                      background: thread.photoUrl ? 'url(' + thread.photoUrl + ')' : 'grey'
-                    }
-                  }
-                  key={thread.id}>
-                    <Link to={`/thread/${thread.id}`}>
+                <Link to={`/thread/${thread.id}`} key={thread.id}>
+                  <GridTile
+                    style={
+                      {
+                        ...gridStyles.tile,
+                        background: thread.photoUrl ? 'url(' + thread.photoUrl + ')' : 'grey'
+                      }
+                    }>
                       <div style={listItemTitleStyle}>{thread.name}: {thread.id}</div>
-                    </Link>
-                    <div style={listItemIconContainerStyle}>
-                      <ContentClear style={listItemIconStyle} data-val={thread.id} onClick={this.props.removeThread}/>
-                    </div>
-                </GridTile>
+                      <div style={listItemIconContainerStyle}>
+                        <ContentClear style={listItemIconStyle} data-val={thread.id} onClick={this.props.removeThread}/>
+                      </div>
+                  </GridTile>
+                </Link>
               );
             })
           }
