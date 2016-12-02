@@ -73,7 +73,7 @@ export default class AddEvent extends React.Component {
     };
 
     return (
-      <div>
+      <div style={{display: 'inline-block', margin: '0 1em 1em 0'}}>
         <RaisedButton label="Add event" onTouchTap={this.handleOpen} />
         <Dialog autoScrollBodyContent={true}
                 title="Tell us about event"

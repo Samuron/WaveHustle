@@ -4,6 +4,8 @@ import AddEvent from './AddEvent';
 import EventsList from './EventCard';
 import firebase from 'firebase';
 import { map, orderBy } from 'lodash';
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 
 export default class Thread extends Component {
@@ -17,6 +19,9 @@ export default class Thread extends Component {
       messages: [],
       events: [],
       user: firebase.auth().currentUser,
+      thread: {
+        isPrivate: true
+      }
     }
   }
 
@@ -45,6 +50,7 @@ export default class Thread extends Component {
         });
 
         this.setState({
+          thread: thread,
           messages: orderBy(messages, 'time')
         });
       });
@@ -63,11 +69,21 @@ export default class Thread extends Component {
     })
   }
 
+  makePrivate() {
+    this.threadRf.update({
+      isPrivate: true,
+      users: [this.state.user.uid]
+    });
+  }
+
   render() {
     return (
       <div style={{ width: 1200, margin: '0 auto'}}>
         <div className="event-content" style={{ width: 870, float: 'left', height: 1000}}>
           <AddEvent threadId={this.props.params.threadId} />
+          {this.state.thread.isPrivate ? '' : (<RaisedButton label="Make private"
+                        onTouchTap={this.makePrivate.bind(this)}>
+          </RaisedButton>)}
           <br />
           {
             this.state.events.length ? <EventsList events={this.state.events} /> :
