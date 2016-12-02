@@ -22,6 +22,7 @@ const App = React.createClass({
     return (
       <div>
         <AppBar style={{ position: 'fixed', top: 0, left: 0 }}
+                title={firebase.auth().currentUser.displayName}
           onLeftIconButtonTouchTap={e => firebase.auth().signOut()}
           iconClassNameLeft="fa fa-sign-out"
           />
