@@ -1,4 +1,4 @@
-# VideoHustle
+# WaveHustle
 A never ending ode to software development
 
 ## Init
