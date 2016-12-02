@@ -67,9 +67,12 @@ class EventCard extends React.Component {
           overlay={<CardTitle title={`Hosted at ${this.props.place}`} subtitle={`Price: ${this.props.price}`} />}>
           <img src={this.props.photoUrl} />
         </CardMedia>
-        <CardText>
-          {this.props.description}
-        </CardText>
+        {
+          this.props.description &&
+          <CardText>
+            {this.props.description}
+          </CardText>
+        }
         <CardActions>
           <RaisedButton label="I'll go" onTouchTap={this.visitEvent} />
           <RaisedButton label="Show visitors" onTouchTap={this.handleOpen} />
