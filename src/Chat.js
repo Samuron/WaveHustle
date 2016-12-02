@@ -39,7 +39,9 @@ export default class Chat extends Component {
     messages: []
   };
 
-  submit() {
+  submit(e) {
+    e.preventDefault();
+    
     if (this.state.message) {
       this.props.onMessageSubmit(this.state.message);
       // after submit
@@ -70,13 +72,15 @@ export default class Chat extends Component {
           </List>
         </div>
         <div style={{padding: '0 0 0 10px'}}>
-          <TextField name="message"
-                     value={this.state.message}
-                     style={{ width: 240, fontSize: 12 }}
-                     onChange={(e) => this.setState({ message: e.target.value })} />
-          <IconButton iconStyle={{width: 30, height: 30}}
-                      onClick={e => this.submit()}
-                      iconClassName="fa fa-paper-plane" />
+          <form onSubmit={e => this.submit(e)}>
+            <TextField name="message"
+                       value={this.state.message}
+                       style={{ width: 240, fontSize: 12 }}
+                       onChange={(e) => this.setState({ message: e.target.value })} />
+            <IconButton iconStyle={{width: 30, height: 30}}
+                        onClick={e => this.submit(e)}
+                        iconClassName="fa fa-paper-plane" />
+          </form>
         </div>
       </div>
     );
