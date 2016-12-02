@@ -28,7 +28,7 @@ const App = React.createClass({
         <Drawer open={this.state.open}>
           <AppBar title="Wave hustle" iconElementLeft={<IconButton onClick={this.handleNavClick}><NavigationClose /></IconButton>}/>
           <MenuItem
-            onClick={e => this.context.router.push('/feed') }
+            onClick={e => this.context.router.push('/') }
             leftIcon={<FontIcon className="fa fa-newspaper-o"/>}>
             Feed
           </MenuItem>
