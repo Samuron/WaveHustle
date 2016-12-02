@@ -7,8 +7,6 @@ import { map, orderBy } from 'lodash';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-import TextField from 'material-ui/TextField';
-
 export default class Thread extends Component {
   constructor(props) {
     super(props);
