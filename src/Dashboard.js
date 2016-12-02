@@ -54,11 +54,14 @@ export default class Dashboard extends Component {
 
   render() {
     return (
-      <DashboardComponent threads={this.state.threads}
-                          openThread={this.openThread.bind(this)}
-                          addThread={this.addThread.bind(this)}
-                          removeThread={this.removeThread.bind(this)}
-      />
+      <div>
+        <DashboardComponent threads={this.state.threads}
+                            openThread={this.openThread.bind(this)}
+                            addThread={this.addThread.bind(this)}
+                            removeThread={this.removeThread.bind(this)}
+        />
+        <Link to={`/thread`}>To fake tread</Link>
+      </div>
     );
   }
 }
