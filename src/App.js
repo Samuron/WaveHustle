@@ -22,22 +22,9 @@ const App = React.createClass({
     return (
       <div>
         <AppBar style={{ position: 'fixed', top: 0, left: 0 }}
-          onLeftIconButtonTouchTap={this.handleNavClick}
-          iconClassNameRight="muidocs-icon-navigation-expand-more"
+          onLeftIconButtonTouchTap={e => firebase.auth().signOut()}
+          iconClassNameLeft="fa fa-sign-out"
           />
-        <Drawer open={this.state.open}>
-          <AppBar title="Wave hustle" iconElementLeft={<IconButton onClick={this.handleNavClick}><NavigationClose /></IconButton>}/>
-          <MenuItem
-            onClick={e => this.context.router.push('/') }
-            leftIcon={<FontIcon className="fa fa-newspaper-o"/>}>
-            Feed
-          </MenuItem>
-          <MenuItem
-            onClick={e => firebase.auth().signOut() }
-            leftIcon={<FontIcon className="fa fa-sign-out"/>}>
-            Sign out
-          </MenuItem>
-        </Drawer>
         <div style={{ paddingTop: this.context.muiTheme.spacing.desktopKeylineIncrement }}>
           {this.props.children}
         </div>
