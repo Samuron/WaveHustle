@@ -18,6 +18,7 @@ const gridStyles = {
     overflowY: 'auto'
   },
   addButton: {
+    marginTop: 10,
     display: 'flex',
     background: 'none',
     boxShadow: 'none'
@@ -61,9 +62,10 @@ export default class Dashboard extends Component {
 
   }
 
-  removeThread(e) {
-    e.preventDefault();
-    let threadId = e.currentTarget.getAttribute('data-val');
+  removeThread(el) {
+    el.preventDefault();
+    el.stopPropagation();
+    let threadId = el.currentTarget.getAttribute('data-val');
     let threadRef = firebase.database().ref(`/threads/` + threadId);
     threadRef.remove();
   }

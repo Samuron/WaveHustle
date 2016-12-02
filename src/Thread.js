@@ -69,9 +69,14 @@ export default class Thread extends Component {
         <div className="event-content" style={{ width: 870, float: 'left', height: 1000}}>
           <AddEvent threadId={this.props.params.threadId} />
           <br />
-          <EventsList events={this.state.events} />
+          {
+            this.state.events.length ? <EventsList events={this.state.events} /> :
+              <p style={{ textAlign: 'center', fontSize: 18  }}>
+                nothing found
+              </p>
+          }
       </div>
-        <div className="chat" style={{ width: 300, marginTop: 55, float: 'right'}}>
+        <div className="chat" style={{ width: 300, marginTop: 55, float: 'right', position: 'relative'}}>
           <Chat onMessageSubmit={this.addNewMessage} messages={this.state.messages} />
         </div>
       </div>
