@@ -24,7 +24,7 @@ const style = {
   textAlign: 'left',
   display: 'inline-block',
   float: 'right',
-  background: 'rgb(0, 151, 167)'
+  background: 'rgb(48, 48, 48)'
 };
 
 function ChatMessage({ message, name, time }) {
@@ -36,7 +36,7 @@ function ChatMessage({ message, name, time }) {
 
   return (
     <p style={textStyle}>
-      <span style={{color: 'rgb(72, 72, 72)'}}>
+      <span style={{color: 'rgb(165, 163, 163)'}}>
         {name}
         <i style={{ marginLeft: 10 }}>{timeFormatted.getHours()}:{minutes}</i>
       </span><br />
