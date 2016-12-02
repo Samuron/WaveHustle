@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import { List, ListItem } from 'material-ui/List';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-
-import { values, reverse } from 'lodash';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import { values, reverse, find } from 'lodash';
 
 const style = {
   width: '100%',
   heigth: '100%'
 };
+
+export const CATEGORIES = [{
+  id: 1,
+  name: 'Management'
+}, {
+  id: 2,
+  name: 'Programming'
+}, {
+  id: 3,
+  name: 'Support'
+}, {
+  id: 4,
+  name: 'Other'
+}];
 
 export default class AddThread extends Component {
   constructor(props) {
@@ -23,7 +36,8 @@ export default class AddThread extends Component {
       photoUrl: "",
       userName: user.displayName,
       userPhotoUrl: user.photoURL,
-      open: false
+      open: false,
+      category: null,
     };
   }
 
@@ -51,7 +65,8 @@ export default class AddThread extends Component {
       creatorPhotoUrl: this.state.userPhotoUrl,
       name: this.state.name,
       photoUrl: this.state.photoUrl,
-      isPrivate: false
+      isPrivate: false,
+      category: this.state.category
     });
     this.handleClose();
   }
@@ -92,6 +107,17 @@ export default class AddThread extends Component {
             onChange={(event) => this.setState({ photoUrl: event.target.value })}
           />
           <br />
+          <SelectField
+            hintText="Category"
+            value={this.state.category ? this.state.category.id : null}
+            onChange={(e, value) => {
+              this.setState({
+                category: find(CATEGORIES, cat => cat.id === value)
+              })
+            }}
+          >
+            {CATEGORIES.map(category => <MenuItem key={category.id} value={category.id} primaryText={category.name} />)}
+          </SelectField>
         </Dialog>
       </div>
     )

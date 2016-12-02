@@ -72,7 +72,7 @@ export default class Dashboard extends Component {
       let output = [];
       Object.keys(threads).forEach((threadKey) => {
           let isAvaliable = (!threads[threadKey].isPrivate ||
-            (threads[threadKey].hasOwnProperty('users') 
+            (threads[threadKey].hasOwnProperty('users')
             && threads[threadKey]['users'].includes(firebase.auth().currentUser.uid)));
           if (isAvaliable) {
             output.push({id: threadKey, ...threads[threadKey]});
@@ -119,7 +119,16 @@ class DashboardComponent extends Component {
                       }
                     }
                     title={thread.name}
-                    subtitle={<span>by <b>{thread.creator}</b></span>}
+                    subtitle={
+                      <span>
+                        by <b>{thread.creator}</b>
+                        {
+                          thread.category &&
+                          <i><br/>in category <b>{thread.category.name}</b></i>
+                        }
+
+                      </span>
+                    }
                     actionIcon={
                       <IconButton data-val={thread.id} onClick={this.props.removeThread}>
                         <ContentClear style={listItemIconStyle} data-val={thread.id} />
