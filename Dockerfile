@@ -2,6 +2,7 @@ FROM node:latest
 
 # Create app directory
 RUN mkdir -p /usr/src/app
+RUN mkdir -p /usr/src/app/dist
 WORKDIR /usr/src/app
 
 # Install app dependencies
