@@ -19,6 +19,7 @@ const gridStyles = {
     overflowY: 'auto'
   },
   addButton: {
+    marginTop: 10,
     display: 'flex',
     background: 'none',
     boxShadow: 'none'
