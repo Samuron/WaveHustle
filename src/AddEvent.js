@@ -31,7 +31,6 @@ export default class AddEvent extends React.Component {
   setPrice = (e, price) => { this.setState({ price }); };
   setDescription = (e, description) => { this.setState({ description }); };
   saveToDb = () => {
-    debugger;
     firebase.database().ref(`/threads/${this.props.threadId}/events`).push(this.state);
     this.handleClose();
   }

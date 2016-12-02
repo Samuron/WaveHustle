@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Chat from './Chat';
+import AddEvent from './AddEvent';
 import EventCard from './EventCard';
 import firebase from 'firebase';
 import { map, orderBy } from 'lodash';
@@ -52,6 +53,7 @@ export default class Thread extends Component {
   render() {
     return (
       <div>
+        <AddEvent threadId={this.props.params.threadId} />
         <EventCard style={{ width: 300, background: 'red'}} events={[]} />
         <Chat onMessageSubmit={this.addNewMessage} messages={this.state.messages} />
       </div>
