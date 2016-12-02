@@ -26,7 +26,7 @@ const App = React.createClass({
           iconClassNameRight="muidocs-icon-navigation-expand-more"
           />
         <Drawer open={this.state.open}>
-          <AppBar title="Video hustle" iconElementLeft={<IconButton onClick={this.handleNavClick}><NavigationClose /></IconButton>}/>
+          <AppBar title="Wave hustle" iconElementLeft={<IconButton onClick={this.handleNavClick}><NavigationClose /></IconButton>}/>
           <MenuItem
             onClick={e => this.context.router.push('/feed') }
             leftIcon={<FontIcon className="fa fa-newspaper-o"/>}>

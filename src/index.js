@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import firebase from 'firebase'
-import { Router, Route, IndexRoute, hashHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 import App from './App';
 import Broadcast from './Broadcast';
@@ -12,6 +12,8 @@ import SubscriptionList from './SubscriptionList';
 import Subscription from './Subscription';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
@@ -37,8 +39,8 @@ const checkToken = (nextState, replace, next) => {
 };
 
 const Navigation = (
-  <MuiThemeProvider>
-    <Router history={hashHistory}>
+  <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+    <Router history={browserHistory}>
       <Route path="/" component={App} onEnter={checkToken}>
         <IndexRoute component={Feed} />
         <Route path="/feed" component={Feed} />
