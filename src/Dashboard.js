@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import firebase from 'firebase';
 import {List, ListItem} from 'material-ui/List';
 
@@ -21,7 +22,10 @@ export default class Dashboard extends Component {
 
   render() {
     return (
-      <DashboardComponent threads={this.state.threads} />
+      <div>
+        <DashboardComponent threads={this.state.threads} />
+        <Link to={`/thread`}>To fake tread</Link>
+      </div>
     );
   }
 }
