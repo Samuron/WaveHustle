@@ -53,7 +53,7 @@ export default class AddThread extends Component {
       photoUrl: this.state.photoUrl,
       isPrivate: false
     });
-    this.clear();
+    this.handleClose();
   }
 
   render() {

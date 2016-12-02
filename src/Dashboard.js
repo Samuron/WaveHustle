@@ -6,6 +6,7 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentClear from 'material-ui/svg-icons/content/clear';
+import AddThread from './AddThread'
 
 const gridStyles = {
   root: {
@@ -57,10 +58,6 @@ export default class Dashboard extends Component {
     };
   }
 
-  addThread() {
-
-  }
-
   removeThread(el) {
     let threadId = el.currentTarget.getAttribute('data-val');
     let threadRef = firebase.database().ref(`/threads/` + threadId);
@@ -83,7 +80,6 @@ export default class Dashboard extends Component {
     return (
       <div>
         <DashboardComponent threads={this.state.threads}
-                            addThread={this.addThread.bind(this)}
                             removeThread={this.removeThread.bind(this)}
         />
       </div>
@@ -100,6 +96,10 @@ class DashboardComponent extends Component {
 
     return (
       <div style={gridStyles.root}>
+        <FloatingActionButton style={gridStyles.addButton}>
+           <AddThread />
+        </FloatingActionButton>
+
         <GridList style={gridStyles.gridList}>
           {
             this.props.threads.map((thread) => {
@@ -123,12 +123,8 @@ class DashboardComponent extends Component {
             })
           }
         </GridList>
-        <FloatingActionButton style={gridStyles.addButton} onClick={this.props.addThread}>
-          <ContentAdd />
-        </FloatingActionButton>
-
-
       </div>
     );
   }
 }
+
